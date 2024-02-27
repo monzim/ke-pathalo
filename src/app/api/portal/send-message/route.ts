@@ -1,4 +1,4 @@
-import { edgeDB } from "@/lib/db.edge";
+import { db } from "@/lib/db";
 import axios, { AxiosError } from "axios";
 import { NextRequest } from "next/server";
 
@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
   console.log("🚀 ~ POST ~ geo:", geo);
 
   try {
-    const portal = await edgeDB.chatPortal.findUnique({
+    const portal = await db.chatPortal.findUnique({
       where: { id: portalId },
     });
     if (!portal) {
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
       console.error(error);
     }
 
-    await edgeDB.annoMessage.create({
+    await db.annoMessage.create({
       data: {
         message: message.trim(),
         location: displayLocation,
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    await edgeDB.chatPortal.update({
+    await db.chatPortal.update({
       where: { id: portal.id },
       data: {
         lastMessageAt: currentTime,
