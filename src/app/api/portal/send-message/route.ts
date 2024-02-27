@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { edgeDB } from "@/lib/db.edge";
 import axios, { AxiosError } from "axios";
 import { NextRequest } from "next/server";
 import { geolocation } from "@vercel/edge";
@@ -10,7 +10,9 @@ export async function POST(req: NextRequest) {
   const { message, portalId } = res;
 
   try {
-    const portal = await db.chatPortal.findUnique({ where: { id: portalId } });
+    const portal = await edgeDB.chatPortal.findUnique({
+      where: { id: portalId },
+    });
     if (!portal) {
       return new Response("Chat portal not found.", { status: 404 });
     }
@@ -52,7 +54,7 @@ export async function POST(req: NextRequest) {
       console.error(error);
     }
 
-    await db.annoMessage.create({
+    await edgeDB.annoMessage.create({
       data: {
         message: message.trim(),
         location: displayLocation,
@@ -60,7 +62,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    await db.chatPortal.update({
+    await edgeDB.chatPortal.update({
       where: { id: portal.id },
       data: {
         lastMessageAt: currentTime,
