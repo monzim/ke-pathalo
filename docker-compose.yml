@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - ke-pathalo-data:/var/lib/postgresql/data
+    networks:
+      - ke-pathalo-gateway
+    environment:
+      POSTGRES_DB: ke-pathalo
+      POSTGRES_USER: monzim
+      POSTGRES_PASSWORD: a123456789
+      PGDATA: "/data"
+
+networks:
+  ke-pathalo-gateway:
+    external: true
+
+volumes:
+  ke-pathalo-data:
