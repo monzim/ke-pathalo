@@ -1,6 +1,9 @@
 import { db } from "@/lib/db";
 import axios, { AxiosError } from "axios";
 import { NextRequest } from "next/server";
+import { geolocation } from "@vercel/edge";
+
+export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
   const res = await req.json();
@@ -20,12 +23,18 @@ export async function POST(req: NextRequest) {
     let displayLocation = "";
 
     try {
-      const lat = process.env.NODE_ENV === "development";
-      console.log("🚀 ~ POST ~ lat:", lat);
-      "24.892276675515255" ?? req.geo?.latitude;
-      const long = process.env.NODE_ENV === "development";
+      const geo = geolocation(req);
+
+      const lat =
+        process.env.NODE_ENV === "development"
+          ? "24.892276675515255"
+          : geo?.latitude;
+      const long =
+        process.env.NODE_ENV === "development"
+          ? "91.90531866971465"
+          : geo?.longitude;
+
       console.log("🚀 ~ POST ~ long:", long);
-      "91.90531866971465" ?? req.geo?.longitude;
 
       const location = await axios.get(
         `https://geocode.maps.co/reverse?lat=${lat}&lon=${long}&api_key=${process.env.GEOCODE_MAPS_API_KEY}`
