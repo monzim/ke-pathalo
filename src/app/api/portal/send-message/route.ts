@@ -70,6 +70,7 @@ export async function POST(req: NextRequest) {
 
     return new Response("Message sent successfully.", { status: 201 });
   } catch (error) {
+    console.log("🚀 ~ POST ~ error:", error);
     return new Response("Error sending message. Please try again.", {
       status: 500,
     });
