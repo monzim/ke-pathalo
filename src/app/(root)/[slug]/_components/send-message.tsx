@@ -25,9 +25,13 @@ export default function SendMessage(props: Props) {
 
     try {
       setLoading(true);
+      const locRes = await axios.get("/api/loc");
+      const geo = locRes.data;
+
       const res = await axios.post("/api/portal/send-message", {
         message: message,
         portalId: props.portal.id,
+        geo,
       });
 
       if (res.status === 201) {

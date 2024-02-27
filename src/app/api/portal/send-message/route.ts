@@ -1,13 +1,13 @@
 import { edgeDB } from "@/lib/db.edge";
 import axios, { AxiosError } from "axios";
 import { NextRequest } from "next/server";
-import { geolocation } from "@vercel/edge";
-
-export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
+  const prod = process.env.NODE_ENV === "production";
+
   const res = await req.json();
-  const { message, portalId } = res;
+  const { message, portalId, geo } = res;
+  console.log("🚀 ~ POST ~ geo:", geo);
 
   try {
     const portal = await edgeDB.chatPortal.findUnique({
@@ -25,16 +25,15 @@ export async function POST(req: NextRequest) {
     let displayLocation = "";
 
     try {
-      const geo = geolocation(req);
+      const lat = prod
+        ? geo?.latitude ?? req?.geo?.latitude
+        : "24.892276675515255";
 
-      const lat =
-        process.env.NODE_ENV === "development"
-          ? "24.892276675515255"
-          : geo?.latitude;
-      const long =
-        process.env.NODE_ENV === "development"
-          ? "91.90531866971465"
-          : geo?.longitude;
+      console.log("🚀 ~ POST ~ lat:", lat);
+
+      const long = prod
+        ? geo?.longitude ?? req?.geo?.longitude
+        : "91.90531866971465";
 
       console.log("🚀 ~ POST ~ long:", long);
 
