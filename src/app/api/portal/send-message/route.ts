@@ -21,16 +21,20 @@ export async function POST(req: NextRequest) {
 
     try {
       const lat = process.env.NODE_ENV === "development";
+      console.log("🚀 ~ POST ~ lat:", lat);
       "24.892276675515255" ?? req.geo?.latitude;
       const long = process.env.NODE_ENV === "development";
+      console.log("🚀 ~ POST ~ long:", long);
       "91.90531866971465" ?? req.geo?.longitude;
 
       const location = await axios.get(
         `https://geocode.maps.co/reverse?lat=${lat}&lon=${long}&api_key=${process.env.GEOCODE_MAPS_API_KEY}`
       );
 
+      console.log("🚀 ~ POST ~ location", location.data);
       displayLocation = location.data.display_name;
     } catch (error) {
+      console.log("🚀 ~ POST ~ location get error:", { error });
       if (error instanceof AxiosError) {
         const { response } = error;
         console.error(response?.data);

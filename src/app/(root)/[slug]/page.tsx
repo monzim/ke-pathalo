@@ -129,7 +129,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 </blockquote>
                 <p className="text-xs text-destructive items-center flex justify-start">
                   <MapPin className="w-4 h-4 inline mr-1" />
-                  {message.location}
+                  {message.location ?? "No location"}
                 </p>
               </div>
             ))}
