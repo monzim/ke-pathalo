@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
+import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import type { ChatPortal } from "@prisma/client";
-import { format } from "date-fns";
-import SendMessage from "./send-message";
 import { db } from "@/lib/db";
-import { FrownIcon } from "lucide-react";
+import { timeFuture } from "@/lib/utils";
+import type { ChatPortal } from "@prisma/client";
+import SendMessage from "./send-message";
 import ViewSendMessage from "./view-messages";
 
 interface SenderUIProps {
@@ -24,14 +24,14 @@ export default async function SenderUI(props: SenderUIProps) {
 
   return (
     <>
-      <section className="mx-auto min-h-screen ">
+      <section className="mx-auto min-h-screen antialiased relative z-10">
         <div className="mx-2">
-          <Card className="mt-10 w-[90vw] lg:w-[50vw]">
+          <Card className="mt-10 w-[92vw] lg:w-[50vw] mx-auto bg-transparent">
             <CardHeader className="text-center">
               <div>
-                <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+                <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
                   Portal{" "}
-                  <Badge className="text-4xl lg:text-5xl font-mono">
+                  <Badge className="text-3xl lg:text-4xl font-mono">
                     {chatPortal.id}
                   </Badge>
                 </h1>
@@ -40,18 +40,15 @@ export default async function SenderUI(props: SenderUIProps) {
                   Welcome to the chat portal anonymous message sender
                 </h1>
 
-                <div className="mt-6 text-center space-y-3 font-semibold text-xs">
+                <div className="mt-4 text-center space-y-3 font-semibold text-xs">
                   <h3 className="text-destructive">
                     {!isPortalOpen ? (
                       "Portal is closed for new messages"
                     ) : (
                       <span>
-                        This portal is open until{" "}
+                        This portal will be open until{" "}
                         <span className="bg-destructive text-destructive-foreground px-2">
-                          {format(
-                            new Date(chatPortal?.openUntil || new Date()),
-                            "do MMM-yy HH:MM:SS"
-                          )}
+                          {timeFuture(chatPortal.openUntil)}
                         </span>
                       </span>
                     )}
@@ -85,6 +82,7 @@ export default async function SenderUI(props: SenderUIProps) {
 
         <ViewSendMessage portalID={chatPortal.id} />
       </section>
+      <BackgroundBeams />
     </>
   );
 }

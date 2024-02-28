@@ -1,14 +1,14 @@
 import { Toaster } from "@/components/ui/sonner";
 import { SmileIcon } from "lucide-react";
 import type { Metadata } from "next";
-import { Shadows_Into_Light_Two } from "next/font/google";
+import { Courier_Prime, Quicksand } from "next/font/google";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import CreatePortalButton from "./(root)/_components/create-portal-button";
 import "./globals.css";
 
-const shadowIntoLight = Shadows_Into_Light_Two({
-  weight: ["400"],
+const quickSand = Quicksand({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -39,9 +39,9 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="dark">
-      <body className={shadowIntoLight.className}>
+      <body className={quickSand.className}>
         <div className="flex flex-col min-h-[100dvh]">
-          <header className="px-4 lg:px-6 h-14 flex items-center">
+          <header className="px-4 lg:px-6 h-14 flex items-center z-10">
             <Link className="flex items-center justify-center" href="/">
               <SmileIcon className="h-6 w-6" />
               <span className="ml-2">Ke Pathalo</span>

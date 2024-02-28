@@ -1,16 +1,17 @@
 import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { logout } from "@/lib/actions";
 import { db } from "@/lib/db";
-import { cn } from "@/lib/utils";
+import { cn, timeAgo, timeFuture } from "@/lib/utils";
 import { format } from "date-fns";
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -33,25 +34,38 @@ export default async function Page() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-start px-2 py-10">
-        <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
-            Hello{" "}
-            <span className="text-primary-foreground bg-primary px-3">
-              {user.email}
-            </span>
-          </h1>
-        </div>
+      <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
 
-        <div className="mx-auto max-w-4xl mt-10">
+      <main className="flex min-h-screen flex-col items-center justify-start px-2 py-10">
+        <Card className="text-center px-10 pt-4">
+          <h1 className="font-bold tracking-tight lg:flex justify-center items-center gap-2">
+            <p className="text-secondary-foreground bg-secondary px-3">
+              {user.email}
+            </p>
+          </h1>
+
+          <p className="mt-2 text-sm text-muted-foreground">
+            Joined on {format(new Date(user.createdAt), "do MMM yy")} and
+            created {portals.length}{" "}
+            {portals.length === 1 ? "portal" : "portals"}.
+          </p>
+
+          <form action={logout}>
+            <Button variant={"link"} type="submit" className="text-destructive">
+              logout
+            </Button>
+          </form>
+        </Card>
+
+        <div className="mx-auto mt-10 w-full max-w-5xl">
           <Table className="border w-full rounded-md bg-background">
-            <TableCaption>
+            {/* <TableCaption>
               You have {portals.length}
               {portals.length === 1 ? " portal" : " portals"}.
-            </TableCaption>
+            </TableCaption> */}
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">ID</TableHead>
+                <TableHead className="w-[100px] text-center">Portal</TableHead>
                 <TableHead>Info</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Last Message</TableHead>
@@ -66,9 +80,7 @@ export default async function Page() {
                     <Link
                       href={`/${portal.id}`}
                       className={cn(
-                        buttonVariants({
-                          variant: "link",
-                        }),
+                        buttonVariants({ size: "sm" }),
                         "tracking-widest font-mono font-medium"
                       )}
                     >
@@ -95,7 +107,7 @@ export default async function Page() {
                       variant={
                         portal.openUntil
                           ? new Date(portal.openUntil) > new Date()
-                            ? "default"
+                            ? "outline"
                             : "destructive"
                           : "default"
                       }
@@ -110,15 +122,12 @@ export default async function Page() {
 
                   <TableCell>
                     {portal?.lastMessageAt
-                      ? format(
-                          new Date(portal?.lastMessageAt!),
-                          "do MMM yy HH:MM"
-                        )
+                      ? timeAgo(portal?.lastMessageAt)
                       : "No messages yet"}
                   </TableCell>
 
-                  <TableCell>
-                    {format(new Date(portal?.openUntil!), "do MMM yy HH:MM")}
+                  <TableCell className="line-clamp-2">
+                    {timeFuture(portal?.openUntil)}
                   </TableCell>
                 </TableRow>
               ))}

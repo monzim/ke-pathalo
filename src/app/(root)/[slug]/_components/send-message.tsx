@@ -60,7 +60,7 @@ export default function SendMessage(props: Props) {
     <>
       <Textarea
         placeholder="Type your message here."
-        className="w-full"
+        className="w-full min-h-28 bg-transparent"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />

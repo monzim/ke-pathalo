@@ -3,6 +3,7 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -94,6 +95,9 @@ export default function CreatePortalButton() {
           </div>
         </div>
         <DialogFooter>
+          <DialogClose id="close-dialog" asChild className="sr-only">
+            <Button variant="outline">Cancel</Button>
+          </DialogClose>
           <Button
             disabled={loading}
             onClick={createPortal}

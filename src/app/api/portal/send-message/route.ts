@@ -7,7 +7,6 @@ export async function POST(req: NextRequest) {
 
   const res = await req.json();
   const { message, portalId, geo } = res;
-  console.log("🚀 ~ POST ~ geo:", geo);
 
   try {
     const portal = await db.chatPortal.findUnique({
@@ -29,19 +28,16 @@ export async function POST(req: NextRequest) {
         ? geo?.latitude ?? req?.geo?.latitude
         : "24.892276675515255";
 
-      console.log("🚀 ~ POST ~ lat:", lat);
-
       const long = prod
         ? geo?.longitude ?? req?.geo?.longitude
         : "91.90531866971465";
 
-      console.log("🚀 ~ POST ~ long:", long);
+      const location = prod
+        ? await axios.get(
+            `https://geocode.maps.co/reverse?lat=${lat}&lon=${long}&api_key=${process.env.GEOCODE_MAPS_API_KEY}`
+          )
+        : { data: { display_name: "Test Location" } };
 
-      const location = await axios.get(
-        `https://geocode.maps.co/reverse?lat=${lat}&lon=${long}&api_key=${process.env.GEOCODE_MAPS_API_KEY}`
-      );
-
-      console.log("🚀 ~ POST ~ location", location.data);
       displayLocation = location.data.display_name;
     } catch (error) {
       console.log("🚀 ~ POST ~ location get error:", { error });
