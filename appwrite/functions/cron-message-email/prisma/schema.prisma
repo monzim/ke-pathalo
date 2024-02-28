@@ -1,0 +1,44 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model BasicUser {
+  id         String       @id @default(uuid())
+  email      String       @unique
+  token      String?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  ChatPortal ChatPortal[]
+}
+
+model ChatPortal {
+  id String @id
+
+  openUntil DateTime?
+
+  messages      AnnoMessage[]
+  viewCount     Int           @default(0)
+  totalMessages Int           @default(0)
+
+  lastMessageAt DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  user_id       String
+  user          BasicUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model AnnoMessage {
+  id        String   @id @default(uuid())
+  message   String
+  location  String?
+  createdAt DateTime @default(now())
+
+  ChatPortal   ChatPortal? @relation(fields: [chatPortalId], references: [id], onDelete: SetNull)
+  chatPortalId String?
+}
