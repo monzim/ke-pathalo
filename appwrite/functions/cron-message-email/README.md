@@ -33,13 +33,13 @@ Sample `200` Response:
 
 ## ⚙️ Configuration
 
-| Setting           | Value         |
-|-------------------|---------------|
-| Runtime           | Node (18.0)   |
-| Entrypoint        | `src/main.js` |
-| Build Commands    | `npm install` |
-| Permissions       | `any`         |
-| Timeout (Seconds) | 15            |
+| Setting           | Value           |
+|-------------------|-----------------|
+| Runtime           | Dart (3.1)     |
+| Entrypoint        | `lib/main.dart` |
+| Build Commands    | `dart pub get`  |
+| Permissions       | `any`           |
+| Timeout (Seconds) | 15              |
 
 ## 🔒 Environment Variables
 

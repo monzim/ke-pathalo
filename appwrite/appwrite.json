@@ -1,24 +1,21 @@
 {
-    "projectId": "65df2c87925f153aa780",
-    "projectName": "ke-pathalo",
-    "functions": [
-        {
-            "$id": "65df2ddc3b17757a3393",
-            "name": "cron-message-email",
-            "runtime": "node-18.0",
-            "execute": [],
-            "events": [],
-            "schedule": "",
-            "timeout": 15,
-            "enabled": true,
-            "logging": true,
-            "entrypoint": "src/main.js",
-            "commands": "npm install",
-            "ignore": [
-                "node_modules",
-                ".npm"
-            ],
-            "path": "functions/cron-message-email"
-        }
-    ]
+  "projectId": "65df2c87925f153aa780",
+  "projectName": "ke-pathalo",
+  "functions": [
+    {
+      "$id": "65df511ac017fe0bdb72",
+      "name": "cron-message-email",
+      "runtime": "dart-3.1",
+      "execute": [],
+      "events": [],
+      "schedule": "*/30 * * * *",
+      "timeout": 30,
+      "enabled": true,
+      "logging": true,
+      "entrypoint": "lib/main.dart",
+      "commands": "dart pub get",
+      "ignore": [".packages", ".dart_tool"],
+      "path": "functions/cron-message-email"
+    }
+  ]
 }
