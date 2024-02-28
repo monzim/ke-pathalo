@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { timeAgo, timeFuture } from "@/lib/utils";
 import type { ChatPortal } from "@prisma/client";
-import { format } from "date-fns";
-import { MapPin, RotateCwIcon, UserCircleIcon } from "lucide-react";
+import MessageCard from "./message-card";
 import RefreshButton from "./refresh-button";
 import ShareButton from "./share-button";
 
@@ -23,9 +21,9 @@ export default async function PortalOwnerView(props: Props) {
 
   return (
     <>
-      <div className="opacity-60 absolute inset-0 -z-10 h-full w-full  bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
+      {/* <div className="opacity-60 absolute inset-0 -z-10 h-full w-full  bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-red-400 opacity-20 blur-[100px]"></div>
-      </div>
+      </div> */}
 
       <main className="min-h-screen">
         <div className="flex flex-col p-4 gap-4 md:grid md:grid-rows-[auto,1fr]  md:p-6 max-w-4xl mx-auto">
@@ -92,26 +90,8 @@ export default async function PortalOwnerView(props: Props) {
           )}
 
           <div className="flex flex-col gap-4">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className="space-y-2 border p-2 rounded-md px-4 bg-background"
-              >
-                <div className="flex items-center gap-2">
-                  <UserCircleIcon className="w-6 h-6 rounded-lg" />
-                  <p className="text-xs text-muted-foreground">
-                    {timeAgo(message.createdAt)}
-                  </p>
-                </div>
-
-                <blockquote className="mt-6 border-l-2 pl-6 italic capitalize font-semibold">
-                  {message.message}
-                </blockquote>
-                <p className="text-xs text-destructive items-center flex justify-start">
-                  <MapPin className="w-4 h-4 inline mr-1" />
-                  {message.location === "" ? "No location" : message.location}
-                </p>
-              </div>
+            {messages.map((message, i) => (
+              <MessageCard key={message.id} message={message} index={i} />
             ))}
           </div>
         </div>
