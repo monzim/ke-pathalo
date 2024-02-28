@@ -29,7 +29,7 @@ model ChatPortal {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   user_id       String
-  user          BasicUser @relation(fields: [user_id], references: [id])
+  user          BasicUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
 model AnnoMessage {
@@ -38,6 +38,6 @@ model AnnoMessage {
   location  String?
   createdAt DateTime @default(now())
 
-  ChatPortal   ChatPortal? @relation(fields: [chatPortalId], references: [id])
+  ChatPortal   ChatPortal? @relation(fields: [chatPortalId], references: [id], onDelete: SetNull)
   chatPortalId String?
 }

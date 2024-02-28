@@ -1,10 +1,11 @@
 import { Toaster } from "@/components/ui/sonner";
 import { SmileIcon } from "lucide-react";
 import type { Metadata } from "next";
-import { Courier_Prime, Quicksand } from "next/font/google";
+import { Quicksand } from "next/font/google";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import CreatePortalButton from "./(root)/_components/create-portal-button";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const quickSand = Quicksand({
@@ -53,6 +54,7 @@ export default function RootLayout({
           </header>
 
           {children}
+          <Analytics />
 
           <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
             <p className="text-xs text-muted-foreground">

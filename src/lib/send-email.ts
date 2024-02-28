@@ -23,7 +23,8 @@ class SendEmailError extends Error {
 export async function sendEmail(payload: IncomingRequest) {
   const env = process.env.NODE_ENV;
   if (env === "development") {
-    console.log("Email sent in development mode", { payload });
+    console.log({ payload });
+    console.log("Email sent in development mode.");
     return;
   }
 
