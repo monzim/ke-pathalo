@@ -7,6 +7,7 @@ import Link from "next/link";
 import CreatePortalButton from "./(root)/_components/create-portal-button";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
+import Script from "next/script";
 
 const quickSand = Quicksand({
   weight: ["400", "500", "600", "700"],
@@ -40,6 +41,12 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="dark">
+      <Script
+        defer
+        src="https://analytics.us.umami.is/script.js"
+        data-website-id="8b7d3dfa-a7b2-4986-8fd2-8aecdbbb3327"
+      />
+
       <body className={quickSand.className}>
         <div className="flex flex-col min-h-[100dvh]">
           <header className="px-4 lg:px-6 h-14 flex items-center z-10">
