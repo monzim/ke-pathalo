@@ -5,6 +5,7 @@ import { Mina } from "next/font/google";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import PortalCreateInput from "./_components/portal-create-input";
+import HowToPopup from "@/components/popup/how-to";
 
 const mina = Mina({
   weight: ["700"],
@@ -105,6 +106,8 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      <HowToPopup />
     </>
   );
 }
