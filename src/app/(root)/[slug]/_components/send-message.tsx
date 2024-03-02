@@ -1,13 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { questions } from "@/lib/questions";
-import type { ChatPortal } from "@prisma/client";
-import axios from "axios";
-import { Loader2 } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,9 +11,16 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { questions } from "@/lib/questions";
+import axios from "axios";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface Props {
-  portal: ChatPortal;
+  portal: { id: string };
 }
 
 export default function SendMessage(props: Props) {

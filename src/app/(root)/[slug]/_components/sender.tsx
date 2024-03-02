@@ -31,21 +31,24 @@ export default async function SenderUI(props: SenderUIProps) {
   });
 
   return (
-    <div className="bg-gradient-to-r from-primary to-fuchsia-500 h-full">
+    <div className="bg-gradient-to-r from-primary to-fuchsia-500">
       <section className="mx-auto min-h-screen antialiased relative z-10">
         <Card className="mt-10 w-[92vw] lg:w-[50vw] mx-auto ">
           <CardHeader className="text-center">
             <div>
               <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
-                <Badge className="text-2xl lg:text-4xl font-mono">
-                  <UserCircle2 className="w-8 h-8 inline-block mr-2" />
-                  {userNames} Portal
+                <Badge className="text-xl lg:text-4xl font-mono">
+                  <UserCircle2 className="w-6 h-6 inline-block mr-1" />
+                  {userNames}
                 </Badge>
               </h1>
 
               <h1 className="scroll-m-20 text-base font-medium text-muted-foreground tracking-tight text-center mt-2 lg:text-xl lg:mt-4">
                 Hey there! You can send a message to {userNames} using this
-                portal.
+                portal{" "}
+                <span className="bg-secondary p-1 text-secondary-foreground">
+                  {chatPortal.id}
+                </span>
               </h1>
 
               <div className="mt-4 text-center space-y-3 font-semibold text-xs">
