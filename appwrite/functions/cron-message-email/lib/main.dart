@@ -41,6 +41,7 @@ Future<dynamic> main(final context) async {
   });
 
   context.log('Cron response: ${cronRes.statusCode}');
+  context.log('Cron response body: ${cronRes.body}');
 
   await databases.updateDocument(
       databaseId: databaseId,

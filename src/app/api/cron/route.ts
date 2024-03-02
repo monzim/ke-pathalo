@@ -40,5 +40,13 @@ export async function GET(request: NextRequest) {
   }
 
   await redis.set(LAST_CHECK_KEY, now.getTime().toString());
-  return Response.json({ success: true });
+  return Response.json({
+    success: true,
+    message: "Cron job ran successfully",
+    lastCheck: lastCheck.toISOString(),
+    now: now.toISOString(),
+    totalChatPortals: chatportals.length,
+    uniqueUserIds: uniqueUserIds.length,
+    users: uniqueUserIds,
+  });
 }
