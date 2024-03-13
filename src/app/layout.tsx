@@ -14,6 +14,46 @@ const quickSand = Quicksand({
   subsets: ["latin"],
 });
 
+const seo_keywords = [
+  "monzim",
+  "ke-pathalo",
+  "কে পাঠালো ",
+  "bangla",
+  "ngl",
+  "anonymous",
+  "messaging",
+  "Anonymous messaging platform",
+  "Send anonymous messages",
+  "Secret message exchange",
+  "Private message service",
+  "Anonymous communication",
+  "Untraceable messaging",
+  "Stealthy message sender",
+  "Hidden identity messaging",
+  "IP-based location tracking",
+  "Confidential message delivery",
+  "Secure anonymous chat",
+  "Covert message exchange",
+  "Incognito messaging",
+  "Masked sender communication",
+  "Private chat with friends",
+  "Anonymous chatroom",
+  "Concealed identity messaging",
+  "IP tracking for approximate location",
+  "Anonymous message service",
+  "Secretive message delivery",
+  "azraf",
+  "send-anonymous-messages",
+  "send-secret-messages",
+  "friendship",
+  "love",
+  "send messages to friends",
+  "get messages",
+  "sender location",
+  "github",
+  "monzim project",
+];
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://kepathalo.monzim.com"),
   alternates: {
@@ -27,6 +67,7 @@ export const metadata: Metadata = {
     images:
       "https://cdn-monzim-com.azureedge.net/public-com/og/other-sites/Ke-Pathalo-OG.jpg",
   },
+  keywords: seo_keywords,
 };
 
 export default function RootLayout({
